@@ -204,45 +204,17 @@ jobs:
           echo "ARCH=$ARCH" >> $GITHUB_OUTPUT
           echo "args=$args" >> $GITHUB_OUTPUT
 
-      - name: "😋 Integrate KernelSU Next"
+      - name: "😋 Integrate APatch Config"
         id: integrate-kernelsu-next
         working-directory: ${{ env.KERNEL_NAME }}
         env:
           arch: ${{ steps.generate-args.outputs.ARCH }}
         if: ${{ env.withKernelSU == 'true' }}
         run: |
-          if [ -d "./KernelSU" ]; then
-            rm -rf "./KernelSU"
-          fi
-          if [ -d "./drivers/kernelsu" ]; then
-            rm -rf "./drivers/kernelsu"
-          fi
-
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
-
-          rm -rf KernelSU
-
-          git clone --recursive -j $(nproc) --branch next https://github.com/rifsxd/KernelSU-Next KernelSU
-
-          KERNELSU_NEXT_VERSION=$(git -C KernelSU describe --abbrev=0 --tags)
-
-          echo -e "\n💡 KernelSU Next version: $KERNELSU_NEXT_VERSION\n"
-
-          echo -e "KERNELSU_NEXT_VERSION=$KERNELSU_NEXT_VERSION" >> $GITHUB_OUTPUT
-
-          echo -e 'CONFIG_KSU=y' >> arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
+          echo -e 'CONFIG_KALLSYMS=y' >> arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
+          echo -e 'CONFIG_KALLSYMS_ALL=y' >> arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
 
           cat arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
-
-          SUSFS_BRANCH=kernel-4.14
-
-          git clone --recursive -j $(nproc) --branch $SUSFS_BRANCH https://github.com/cvnertnc/susfs4ksu-begonia SUSFS
-
-          SUSFS_REF=$(git -C SUSFS rev-parse --short HEAD)
-          echo -e "SUSFS_REF=$SUSFS_REF" >> $GITHUB_OUTPUT
-          echo -e "SUSFS_BRANCH=$SUSFS_BRANCH" >> $GITHUB_OUTPUT
-
-          patch -p1 < SUSFS/kernel_patches/0001-fs-implement-KernelSU.patch
 
       - name: "🥷 Add SUSFS patches"
         id: add-susfs-patches
