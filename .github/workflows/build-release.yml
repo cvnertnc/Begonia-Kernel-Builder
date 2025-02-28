@@ -392,3 +392,42 @@ jobs:
           files: "${{ env.WORKSPACE }}/${{ env.KERNEL_DEVICE }}-${{ env.KERNEL_NAME }}-KSUNext-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS-${{ env.builddate }}.zip"
           fail_on_unmatched_files: true
           preserve_order: true
+
+      - name: "📤 Report to Telegram"
+        if: ${{ env.useAnykernel == 'true' && env.release == 'true' && secrets.TG_TOKEN != null }}
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT: "@cvnertnc" # Veya secret olarak: ${{ secrets.TG_CHAT }}
+        run: |
+          RELEASE_TAG="v${{ env.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
+          FILE_NAME="${{ env.KERNEL_DEVICE }}-${{ env.KERNEL_NAME }}-KSUNext-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS-${{ env.builddate }}.zip"
+          DL_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/download/$RELEASE_TAG/$FILE_NAME"
+      
+          MSG="*✨ New Kernel Build Released\\!*
+          
+          \`\`\`
+          Kernel: ${{ env.KERNEL_NAME }}
+          Device: ${{ env.KERNEL_DEVICE }}
+          Date: ${{ env.builddate }}
+          KernelSU: ${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}
+          SUSFS: Supported
+          Mountify: Supported
+          \`\`\`
+      
+          *📥 Download:* [${FILE_NAME//_/\\_}](${DL_URL})
+      
+          *📝 Installation Guide:*
+          1\\. Flash via TWRP
+          2\\. Install KernelSU Manager:
+             [Stable](https://github\\.com/KernelSU\\-Next/KernelSU\\-Next/releases/latest) \\|\\| [Nightly](https://nightly\\.link/KernelSU\\-Next/KernelSU\\-Next/workflows/build\\-manager/next/manager)
+          3\\. Apply [SUSFS Module](https://nightly\\.link/sidex15/susfs4ksu\\-module/workflows/build/v1\\.5\\.2+)
+          4\\. Apply [Mountify Module](https://github\\.com/backslashxx/mountify/releases/latest)
+      
+          Build by @the\_CEHunter \\| [cvnertnc](https://github\\.com/cvnertnc)"
+      
+          echo "Sending Telegram notification..."
+          curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -d chat_id="${TG_CHAT}" \
+            -d parse_mode="MarkdownV2" \
+            -d disable_web_page_preview="true" \
+            -d text="$MSG"
