@@ -392,3 +392,58 @@ jobs:
           files: "${{ env.WORKSPACE }}/${{ env.KERNEL_DEVICE }}-${{ env.KERNEL_NAME }}-KSUNext-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS-${{ env.builddate }}.zip"
           fail_on_unmatched_files: true
           preserve_order: true
+
+  Report-to-Telegram:
+    name: "📢 Telegram'a Bildir"
+    needs: Build-Kernel
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    env:
+      TG_TOKEN: ${{ secrets.TG_TOKEN }}
+    if: ${{ env.TG_TOKEN != null }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+  
+      - name: Get release info
+        id: release_info
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG=$(gh release view --json tagName -q .tagName)
+          RELEASE_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/tag/$TAG"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "RELEASE_URL=$RELEASE_URL" >> $GITHUB_ENV
+  
+      - name: Prepare message
+        id: prepare_message
+        run: |
+          # Mesaj formatlama
+          MSG="*✦ Yeni Kernel Derlemesi!* 🚀
+  
+          • *Cihaz:* \`${{ env.KERNEL_DEVICE }}\`
+          • *Kernel:* \`${{ env.KERNEL_NAME }}\`
+          • *Sürüm:* \`${{ env.builddate }}\`
+          • *KernelSU Next:* \`${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}\`
+          • *SUSFS:* \`${{ steps.add-susfs-patches.outputs.SUSFS_REF }}\`
+  
+          [GitHub Release]($RELEASE_URL) 📦
+  
+          *Kurulum Talimatları:*
+          1. Bu release'den kernel'i yükleyin
+          2. KernelSU Next Manager APK'sini indirin
+          3. SUSFS ve Mountify modüllerini ekleyin"
+  
+          echo "MESSAGE<<EOF" >> $GITHUB_OUTPUT
+          echo "$MSG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+  
+      - name: Send to Telegram
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "chat_id=@cvnertnc&parse_mode=Markdown&disable_web_page_preview=true&text=${{ steps.prepare_message.outputs.MESSAGE }}" \
+            "https://api.telegram.org/bot$TG_TOKEN/sendMessage"
