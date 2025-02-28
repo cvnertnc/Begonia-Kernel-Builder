@@ -396,7 +396,7 @@ jobs:
       - name: "📤 Report to Telegram"
         if: ${{ env.useAnykernel == 'true' && env.release == 'true' && secrets.TG_TOKEN != null }}
         env:
-          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_TOKEN: ${{ inputs.tg_token }}
           TG_CHAT: "@cvnertnc" # Veya secret olarak: ${{ secrets.TG_CHAT }}
         run: |
           RELEASE_TAG="v${{ env.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
