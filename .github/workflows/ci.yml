@@ -90,10 +90,13 @@ jobs:
       branch_exists: ${{ env.branch_exists }}
 
   build:
-    permissions: write-all
+    permissions:
+      contents: write
+      actions: read
     needs: check-updates
     uses: ./.github/workflows/build-release.yml
     with:
+      from_ci: true
+    secrets:
       tg_token: ${{ secrets.TG_TOKEN }}
-    if: ${{ needs.check-updates.outputs.update == 'true' || needs.check-updates.outputs.branch_exists == 'false' }}
-    secrets: inherit
+    if: ${{ needs.check-updates.outputs.update == 'true' }}

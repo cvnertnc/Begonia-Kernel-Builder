@@ -10,6 +10,9 @@ on:
         type: boolean
         required: false
         default: true
+    secrets:
+      tg_token:
+        required: false
 
   workflow_dispatch:
 
@@ -394,15 +397,15 @@ jobs:
           preserve_order: true
 
       - name: "📤 Report to Telegram"
-        if: ${{ env.useAnykernel == 'true' && env.release == 'true' && secrets.TG_TOKEN != null }}
+        if: ${{ secrets.tg_token != '' && env.useAnykernel == 'true' && env.release == 'true' }}
         env:
-          TG_TOKEN: ${{ inputs.tg_token }}
-          TG_CHAT: "@cvnertnc" # Veya secret olarak: ${{ secrets.TG_CHAT }}
+          TG_TOKEN: ${{ secrets.tg_token }}
+          TG_CHAT: "@cvnertnc"
         run: |
           RELEASE_TAG="v${{ env.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
           FILE_NAME="${{ env.KERNEL_DEVICE }}-${{ env.KERNEL_NAME }}-KSUNext-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS-${{ env.builddate }}.zip"
           DL_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/download/$RELEASE_TAG/$FILE_NAME"
-      
+
           MSG="*✨ New Kernel Build Released\\!*
           
           \`\`\`
@@ -413,8 +416,8 @@ jobs:
           SUSFS: Supported
           Mountify: Supported
           \`\`\`
-      
-          *📥 Download:* [${FILE_NAME//_/\\_}](${DL_URL})
+
+          *📥 Download:* [${FILE_NAME//_/\\_}${DL_URL})
       
           *📝 Installation Guide:*
           1\\. Flash via TWRP
