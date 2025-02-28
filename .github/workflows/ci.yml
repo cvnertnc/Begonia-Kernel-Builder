@@ -93,5 +93,7 @@ jobs:
     permissions: write-all
     needs: check-updates
     uses: ./.github/workflows/build-release.yml
+    with:
+      tg_token: ${{ secrets.TG_TOKEN }}
     if: ${{ needs.check-updates.outputs.update == 'true' || needs.check-updates.outputs.branch_exists == 'false' }}
     secrets: inherit
