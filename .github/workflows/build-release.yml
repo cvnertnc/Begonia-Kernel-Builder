@@ -411,7 +411,7 @@ jobs:
       release_name: "v${{ needs.Set-repos.outputs.builddate }}.${{ github.run_number }} (KernelSU-Next ${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }} + SUSFS)"
       release_url: "https://github.com/${{ github.repository }}/releases/tag/v${{ needs.Set-repos.outputs.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
       release_tag: "v${{ needs.Set-repos.outputs.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
-      tg_chat: "@your_telegram_chat_id"  # Replace with your Telegram chat ID
+      tg_chat: "@cvnertnc"
       build_date: "${{ needs.Set-repos.outputs.builddate }}"
       kernel_name: "${{ env.KERNEL_NAME }}"
       device: "${{ env.KERNEL_DEVICE }}"
