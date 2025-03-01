@@ -30,6 +30,7 @@ jobs:
           echo "repos<<EOF" >> $GITHUB_OUTPUT
           jq -s '[.[][]]' repos/repos*.json >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+
       - name: "⏰ Set builddate"
         id: generate-builddate
         run: echo "builddate=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
@@ -222,7 +223,7 @@ jobs:
         working-directory: ${{ env.KERNEL_NAME }}
         env:
           arch: ${{ steps.generate-args.outputs.ARCH }}
-        if: ${{ env.withRoot == 'ksu' || env.withRoot == 'ksun' }}
+        if: ${{ matrix.repos.withRoot == 'ksu' || matrix.repos.withRoot == 'ksun' }}
         run: |
           if [ -d "./KernelSU" ]; then
             rm -rf "./KernelSU"
@@ -234,7 +235,7 @@ jobs:
             rm -rf "./SUSFS"
           fi
 
-          if [[ "$withRoot" == "ksu" ]]; then
+          if [[ "${{ matrix.repos.withRoot }}" == "ksu" ]]; then
             curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
           else
             curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
@@ -274,7 +275,7 @@ jobs:
         working-directory: ${{ env.KERNEL_NAME }}
         env:
           arch: ${{ steps.generate-args.outputs.ARCH }}
-        if: ${{ (env.withRoot == 'true' || env.withRoot == 'ksun') && env.withSUSFS == 'true' }}
+        if: ${{ (matrix.repos.withRoot == 'true' || matrix.repos.withRoot == 'ksun') && matrix.repos.withSUSFS == 'true' }}
         run: |
 
           if [ -d "./SUSFS" ]; then
@@ -292,7 +293,7 @@ jobs:
           cp -v SUSFS/kernel_patches/fs/* fs/
           cp -v SUSFS/kernel_patches/include/linux/* include/linux/
 
-          if [[ "$withRoot" == "ksun" ]]; then
+          if [[ "${{ matrix.repos.withRoot }}" == "ksun" ]]; then
               patch -d KernelSU -p1 < SUSFS/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch
           else
             rm -rf KernelSU
@@ -356,7 +357,7 @@ jobs:
           retention-days: 90
 
       - name: "❤️ Pack AnyKernel3.zip"
-        if: ${{ env.useAnykernel == 'true' }}
+        if: ${{ matrix.repos.AnyKernel3.use == 'true' }}
         env:
           arch: ${{ steps.generate-args.outputs.ARCH }}
           anykernel: "${{ env.WORKSPACE }}/${{ env.KERNEL_DEVICE }}-${{ env.KERNEL_NAME }}-KSUNext-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS-${{ env.builddate }}"
@@ -372,7 +373,7 @@ jobs:
 
       - name: "💾 Upload AnyKernel3 image => (${{ env.builddate }})"
         uses: actions/upload-artifact@v4
-        if: ${{ env.useAnykernel == 'true' }}
+        if: ${{ matrix.repos.AnyKernel3.use == 'true' }}
         with:
           name: "${{ env.KERNEL_DEVICE }}-${{ env.KERNEL_NAME }}-KSUNext-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS-${{ env.builddate }}"
           path: AnyKernel3/*
@@ -380,7 +381,7 @@ jobs:
       - name: 🧧 Create GitHub Release => (${{ env.builddate }})
         continue-on-error: false
         uses: softprops/action-gh-release@v2.1.0
-        if: ${{ env.useAnykernel == 'true' && env.release == 'true' }}
+        if: ${{ matrix.repos.AnyKernel3.use == 'true' && matrix.repos.AnyKernel3.release == 'true' }}
         with:
           tag_name: v${{ env.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS
           name: v${{ env.builddate }}.${{ github.run_number }} (KernelSU-Next ${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }} + SUSFS)
@@ -393,15 +394,24 @@ jobs:
           fail_on_unmatched_files: true
           preserve_order: true
 
+      - name: Check report conditions
+        id: check_report_conditions
+        run: |
+          if [ "${{ matrix.repos.AnyKernel3.use }}" == "true" ] && [ "${{ matrix.repos.AnyKernel3.release }}" == "true" ]; then
+            echo "should_report=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_report=false" >> $GITHUB_OUTPUT
+          fi
+
   Report-to-Telegram:
     needs: Build-Kernel
     uses: ./.github/workflows/telegram-report.yml
-    if: ${{ env.useAnykernel == 'true' && env.release == 'true' }}
+    if: ${{ needs.Build-Kernel.outputs.should_report == 'true' }}
     with:
-      release_name: "v${{ env.builddate }}.${{ github.run_number }} (KernelSU-Next ${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }} + SUSFS)"
-      release_url: "https://github.com/${{ github.repository }}/releases/tag/v${{ env.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
-      release_tag: "v${{ env.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
-      tg_chat: "@cvnertnc"
+      release_name: "v${{ needs.Set-repos.outputs.builddate }}.${{ github.run_number }} (KernelSU-Next ${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }} + SUSFS)"
+      release_url: "https://github.com/${{ github.repository }}/releases/tag/v${{ needs.Set-repos.outputs.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
+      release_tag: "v${{ needs.Set-repos.outputs.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
+      tg_chat: "@your_telegram_chat_id"  # Replace with your Telegram chat ID
       build_date: "${{ needs.Set-repos.outputs.builddate }}"
       kernel_name: "${{ env.KERNEL_NAME }}"
       device: "${{ env.KERNEL_DEVICE }}"
