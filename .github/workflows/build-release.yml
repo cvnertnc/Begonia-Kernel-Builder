@@ -392,3 +392,16 @@ jobs:
           files: "${{ env.WORKSPACE }}/${{ env.KERNEL_DEVICE }}-${{ env.KERNEL_NAME }}-KSUNext-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS-${{ env.builddate }}.zip"
           fail_on_unmatched_files: true
           preserve_order: true
+
+  Report-to-Telegram:
+    needs: Build-Kernel
+    uses: ./.github/workflows/telegram-report.yml
+    if: ${{ env.useAnykernel == 'true' && env.release == 'true' }}
+    with:
+      release_name: "v${{ env.builddate }}.${{ github.run_number }} (KernelSU-Next ${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }} + SUSFS)"
+      release_url: "https://github.com/${{ github.repository }}/releases/tag/v${{ env.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
+      release_tag: "v${{ env.builddate }}.${{ github.run_number }}-KernelSU-Next-${{ steps.integrate-kernelsu-next.outputs.KERNELSU_NEXT_VERSION }}-SUSFS"
+      tg_chat: "@cvnertnc"
+      build_date: "${{ needs.Set-repos.outputs.builddate }}"
+      kernel_name: "${{ env.KERNEL_NAME }}"
+      device: "${{ env.KERNEL_DEVICE }}"

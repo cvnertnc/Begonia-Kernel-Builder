@@ -1,0 +1,57 @@
+name: Report to Telegram
+
+on:
+  workflow_call:
+    inputs:
+      release_name:
+        required: true
+        type: string
+      release_url:
+        required: true
+        type: string
+      release_tag:
+        required: true
+        type: string
+      tg_chat:
+        required: true
+        type: string
+      build_date:
+        required: true
+        type: string
+      kernel_name:
+        required: true
+        type: string
+      device:
+        required: true
+        type: string
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Report to Telegram
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+        if: env.TG_TOKEN != null
+        run: |
+          TG_CHAT="${{ inputs.tg_chat }}"
+          RELEASE_NAME="${{ inputs.release_name }}"
+          RELEASE_URL="${{ inputs.release_url }}"
+          RELEASE_TAG="${{ inputs.release_tag }}"
+          BUILD_DATE="${{ inputs.build_date }}"
+          KERNEL_NAME="${{ inputs.kernel_name }}"
+          DEVICE="${{ inputs.device }}"
+
+          MSG="*🔔 New Kernel Build Alert!*
+
+          *Kernel Name:* ${KERNEL_NAME}
+          *Device:* ${DEVICE}
+          *Build Date:* ${BUILD_DATE}
+          *Release Name:* ${RELEASE_NAME}
+          *Tag:* ${RELEASE_TAG}
+          *Download:* [${RELEASE_NAME}](${RELEASE_URL})
+          "
+
+          POST="https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
+          curl -X POST --data-urlencode "parse_mode=Markdown" --data-urlencode "disable_web_page_preview=true" --data-urlencode "text=${MSG}" --data-urlencode "chat_id=${TG_CHAT}" "$POST"
