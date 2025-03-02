@@ -263,7 +263,7 @@ jobs:
         working-directory: ${{ env.KERNEL_NAME }}
         env:
           arch: ${{ steps.generate-args.outputs.ARCH }}
-        if: ${{ (env.withRoot == 'true' || env.withRoot == 'ksun') && env.withSUSFS == 'true' }}
+        if: ${{ (env.withRoot == 'ksu' || env.withRoot == 'ksun') && env.withSUSFS == 'true' }}
         run: |
 
           if [ -d "./SUSFS" ]; then
