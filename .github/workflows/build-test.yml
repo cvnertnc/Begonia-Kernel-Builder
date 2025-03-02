@@ -40,7 +40,6 @@ jobs:
     needs:
       - Set-repos
     strategy:
-      max-parallel: 4
       fail-fast: false
       matrix:
         repos: ${{ fromJSON(needs.Set-repos.outputs.repos) }}
@@ -61,19 +60,9 @@ jobs:
     steps:
       - name: "🟣 Set Kernel Variables"
         run: |
-          if [[ "$KNAME" == "power" ]]; then
-            echo "KERNEL_NAME=${{ matrix.repos.kernelSource.power.name }}" >> $GITHUB_ENV
-            echo "KERNEL_REPO=${{ matrix.repos.kernelSource.power.repo }}" >> $GITHUB_ENV
-            echo "KERNEL_BRANCH=${{ matrix.repos.kernelSource.power.branch }}" >> $GITHUB_ENV
-          elif [[ "$KNAME" == "nova" ]]; then
-            echo "KERNEL_NAME=${{ matrix.repos.kernelSource.nova.name }}" >> $GITHUB_ENV
-            echo "KERNEL_REPO=${{ matrix.repos.kernelSource.nova.repo }}" >> $GITHUB_ENV
-            echo "KERNEL_BRANCH=${{ matrix.repos.kernelSource.nova.branch }}" >> $GITHUB_ENV
-          else
-            echo "KERNEL_NAME=${{ matrix.repos.kernelSource.astera.name }}" >> $GITHUB_ENV
-            echo "KERNEL_REPO=${{ matrix.repos.kernelSource.astera.repo }}" >> $GITHUB_ENV
-            echo "KERNEL_BRANCH=${{ matrix.repos.kernelSource.astera.branch }}" >> $GITHUB_ENV
-          fi
+          echo "KERNEL_NAME=${{ matrix.repos.kernelSource.name }}" >> $GITHUB_ENV
+          echo "KERNEL_REPO=${{ matrix.repos.kernelSource.repo }}" >> $GITHUB_ENV
+          echo "KERNEL_BRANCH=${{ matrix.repos.kernelSource.branch }}" >> $GITHUB_ENV
 
           echo "toolchains=$(echo '${{ toJSON(matrix.repos.toolchains) }}' | jq -c)" >> $GITHUB_ENV
           echo "params=$(echo '${{ toJSON(matrix.repos.params) }}' | jq -c)" >> $GITHUB_ENV
