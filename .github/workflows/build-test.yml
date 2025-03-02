@@ -238,7 +238,9 @@ jobs:
           echo -e "KERNELSU_NEXT_VERSION=$KERNELSU_NEXT_VERSION" >> $GITHUB_OUTPUT
 
           echo -e 'CONFIG_KSU=y' >> arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
-          echo -e 'CONFIG_KSU_WITH_KPROBES=n' >> arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
+          if [[ "$withRoot" == "ksun" ]]; then
+            echo -e 'CONFIG_KSU_WITH_KPROBES=n' >> arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
+          fi
 
           cat arch/${{ env.arch }}/configs/${{ env.DEFCONFIG_NAME }}
 
@@ -250,12 +252,22 @@ jobs:
           echo -e "SUSFS_REF=$SUSFS_REF" >> $GITHUB_OUTPUT
           echo -e "SUSFS_BRANCH=$SUSFS_BRANCH" >> $GITHUB_OUTPUT
 
-          if [[ "$KNAME" == "power" ]]; then
-            patch -p1 < SUSFS/kernel_patches/kernels/power/0001-fs-implement-KernelSU.patch
-          elif [[ "$KNAME" == "nova" ]]; then
-            patch -p1 < SUSFS/kernel_patches/kernels/nova/0001-fs-implement-KernelSU.patch
+          if [[ "$withRoot" == "ksu" ]]; then
+            if [[ "$KNAME" == "power" ]]; then
+              patch -p1 < SUSFS/kernel_patches/kernels/power/0001-fs-implement-KSU.patch
+            elif [[ "$KNAME" == "nova" ]]; then
+              patch -p1 < SUSFS/kernel_patches/kernels/nova/0001-fs-implement-KSU.patch
+            else
+              patch -p1 < SUSFS/kernel_patches/0001-fs-implement-KSU.patch
+            fi
           else
-            patch -p1 < SUSFS/kernel_patches/0001-fs-implement-KernelSU.patch
+            if [[ "$KNAME" == "power" ]]; then
+              patch -p1 < SUSFS/kernel_patches/kernels/power/0001-fs-implement-KSUN.patch
+            elif [[ "$KNAME" == "nova" ]]; then
+              patch -p1 < SUSFS/kernel_patches/kernels/nova/0001-fs-implement-KSUN.patch
+            else
+              patch -p1 < SUSFS/kernel_patches/0001-fs-implement-KSUN.patch
+            fi
           fi
 
       - name: "🥷 Add SUSFS patches"
