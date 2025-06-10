@@ -328,14 +328,8 @@ jobs:
             rm -rf "./drivers/kernelsu"
             if [[ "$withRoot" == "ksu" ]]; then
               curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s susfs-main
-              curl -LSs https://github.com/backslashxx/KernelSU/commit/c288f36.patch | patch -p1
-              curl -LSs https://github.com/backslashxx/KernelSU/commit/bbeeb36.patch | patch -p1
-              curl -LSs https://github.com/backslashxx/KernelSU/commit/8e56456.patch | patch -p1
             else
               curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s susfs-dev
-              curl -LSs https://github.com/backslashxx/KernelSU/commit/c288f36.patch | patch -p1
-              curl -LSs https://github.com/backslashxx/KernelSU/commit/bbeeb36.patch | patch -p1
-              curl -LSs https://github.com/backslashxx/KernelSU/commit/8e56456.patch | patch -p1
             fi
           fi
 
