@@ -274,12 +274,12 @@ jobs:
           echo -e "SUSFS_BRANCH=$SUSFS_BRANCH" >> $GITHUB_OUTPUT
 
           if [[ "$KNAME" == "power" ]]; then
-              patch -p1 < SUSFS/kernel_patches/kernels/power/0001-syscall-ksu-hook.patch
+            patch -p1 < SUSFS/kernel_patches/0001-syscall-ksu-hook.patch
           elif [[ "$KNAME" == "nova" ]]; then
             if [[ "$withRoot" == "ksu" || "$withRoot" == "sukisu" ]]; then
               patch -p1 < SUSFS/kernel_patches/kernels/nova/0001-standard-ksu-hook.patch
             else
-              patch -p1 < SUSFS/kernel_patches/kernels/nova/0001-syscall-ksu-hook.patch
+              patch -p1 < SUSFS/kernel_patches/0001-syscall-ksu-hook.patch
             fi
           else
             if [[ "$withRoot" == "ksu" || "$withRoot" == "sukisu" ]]; then

@@ -59,6 +59,7 @@ Download and install Mountify Module [![Mountify Module](https://img.shields.io/
 > Many Thanks [Sidex15](https://github.com/sidex15) for all the [Bug Fixes](https://github.com/cvnertnc/Begonia-Kernel-Builder/commit/a6aad58fa292b0fab54199ab4f982c286b35cb6d)
 
 [MrErenK](https://github.com/MrErenK)  
+[backslashxx](https://github.com/backslashxx)  
 [rifsxd](https://github.com/rifsxd)  
 [ShirkNeko](https://github.com/ShirkNeko)  
 [rsuntk](https://github.com/rsuntk)  
