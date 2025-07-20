@@ -2,11 +2,11 @@
   {
     "kernelName": "power",
     "kernelSource": {
-      "device": "begonia",
-      "defconfig": "begonia_user_defconfig",
+      "device": "violet",
+      "defconfig": "vendor/perf-violet_defconfig",
       "name": "Power-Non-Patches",
-      "repo": "https://github.com/Saikrishna1504/kernel_xiaomi_mt6785",
-      "branch": "bka"
+      "repo": "https://github.com/ChroniX-AOSP/kernel_xiaomi_violet",
+      "branch": "main"
     },
     "withRoot": "none",
     "withSUSFS": false,
@@ -45,18 +45,18 @@
     "AnyKernel3": {
       "use": true,
       "release": true,
-      "repo": "https://github.com/cvnertnc/AnyKernel3/",
-      "branch": "begonia"
+      "repo": "https://github.com/ChroniX-AOSP/AnyKernel3.git",
+      "branch": "sixteen"
     }
   },
   {
     "kernelName": "power",
     "kernelSource": {
-      "device": "begonia",
-      "defconfig": "begonia_user_defconfig",
+      "device": "violet",
+      "defconfig": "vendor/perf-violet_defconfig",
       "name": "Power-KernelSU-SUSFS",
-      "repo": "https://github.com/Saikrishna1504/kernel_xiaomi_mt6785",
-      "branch": "bka"
+      "repo": "https://github.com/ChroniX-AOSP/kernel_xiaomi_violet",
+      "branch": "main"
     },
     "withRoot": "ksu",
     "withSUSFS": true,
@@ -95,18 +95,18 @@
     "AnyKernel3": {
       "use": true,
       "release": true,
-      "repo": "https://github.com/cvnertnc/AnyKernel3/",
-      "branch": "begonia"
+      "repo": "https://github.com/ChroniX-AOSP/AnyKernel3.git",
+      "branch": "sixteen"
     }
   },
   {
     "kernelName": "power",
     "kernelSource": {
-      "device": "begonia",
-      "defconfig": "begonia_user_defconfig",
+      "device": "violet",
+      "defconfig": "vendor/perf-violet_defconfig",
       "name": "Power-KSU-Next-SUSFS",
-      "repo": "https://github.com/Saikrishna1504/kernel_xiaomi_mt6785",
-      "branch": "bka"
+      "repo": "https://github.com/ChroniX-AOSP/kernel_xiaomi_violet",
+      "branch": "main"
     },
     "withRoot": "ksun",
     "withSUSFS": true,
@@ -145,18 +145,18 @@
     "AnyKernel3": {
       "use": true,
       "release": true,
-      "repo": "https://github.com/cvnertnc/AnyKernel3/",
-      "branch": "begonia"
+      "repo": "https://github.com/ChroniX-AOSP/AnyKernel3.git",
+      "branch": "sixteen"
     }
   },
   {
     "kernelName": "power",
     "kernelSource": {
-      "device": "begonia",
-      "defconfig": "begonia_user_defconfig",
+      "device": "violet",
+      "defconfig": "vendor/perf-violet_defconfig",
       "name": "Power-SukiSU-KPM-SUSFS",
-      "repo": "https://github.com/Saikrishna1504/kernel_xiaomi_mt6785",
-      "branch": "bka"
+      "repo": "https://github.com/ChroniX-AOSP/kernel_xiaomi_violet",
+      "branch": "main"
     },
     "withRoot": "sukisu",
     "withSUSFS": true,
@@ -195,8 +195,8 @@
     "AnyKernel3": {
       "use": true,
       "release": true,
-      "repo": "https://github.com/cvnertnc/AnyKernel3/",
-      "branch": "begonia"
+      "repo": "https://github.com/ChroniX-AOSP/AnyKernel3.git",
+      "branch": "sixteen"
     }
   }
 ]
