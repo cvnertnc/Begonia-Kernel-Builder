@@ -1,5 +1,5 @@
-SukiSU-Ultra Commit ID: 12f54b115cb7c2460a3759f2a0f2239a3281cfcb
-SukiSU-Ultra Commit Date: 2025-08-31T12:45:49Z
+SukiSU-Ultra Commit ID: 596dab1db8f6f5e618a89e5846eb20ab75ea511d
+SukiSU-Ultra Commit Date: 2025-09-04T09:56:46Z
 
 KernelSU Commit ID: 2e9891addf7f277999e88648e8d843359716d591
 KernelSU Commit Date: 2025-09-02T22:17:50Z
