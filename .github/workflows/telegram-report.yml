@@ -57,7 +57,7 @@ jobs:
           echo "KernelSU_VERSION=$KernelSU_VERSION" >> $GITHUB_ENV
 
       - name: Getting KernelSU Alternative version
-        id: integrate-ksu
+        id: integrate-ksu-alternative
         run: |
           if [ -d "./KernelSU" ]; then
             rm -rf "./KernelSU"
