@@ -56,6 +56,21 @@ jobs:
 
           echo "KernelSU_VERSION=$KernelSU_VERSION" >> $GITHUB_ENV
 
+      - name: Getting KernelSU Alternative version
+        id: integrate-ksu
+        run: |
+          if [ -d "./KernelSU" ]; then
+            rm -rf "./KernelSU"
+          fi
+
+          git clone --recursive -j $(nproc) --branch main https://github.com/rsuntk/KernelSU KernelSU
+
+          KernelSUA_VERSION=$(git -C KernelSU describe --abbrev=0 --tags)
+
+          echo "KernelSU version: $KernelSUA_VERSION"
+
+          echo "KernelSUA_VERSION=$KernelSUA_VERSION" >> $GITHUB_ENV
+
       - name: Getting KernelSU-Next version
         id: integrate-kernelsu-next
         run: |
@@ -114,7 +129,8 @@ jobs:
           📥 *Download Links:*
           - GitHub Release: [${{ env.RELEASE_NAME }}](${{ env.RELEASE_URL }})
           - KernelSU Manager:
-            [Release](https://github.com/rsuntk/KernelSU/releases/${{ env.KernelSU_VERSION }}) | [Nightly](https://nightly.link/rsuntk/KernelSU/workflows/build-manager/main/manager)
+            Original [Release](https://github.com/rsuntk/KernelSU/releases/${{ env.KernelSU_VERSION }}) | [Nightly](https://nightly.link/rsuntk/KernelSU/workflows/build-manager/main/manager)
+            Alternative [Release](https://github.com/backslashxx/KernelSU/releases/${{ env.KernelSUA_VERSION }})
           - KernelSU-Next Manager:
             Original [Release](https://github.com/KernelSU-Next/KernelSU-Next/releases/${{ env.KERNELSUN_VERSION }}) | [Nightly](https://nightly.link/KernelSU-Next/KernelSU-Next/workflows/build-manager-ci/next/Manager)
             Fork [Nightly](https://github.com/TheWildJames/KernelSU-Next/actions)
