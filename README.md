@@ -34,7 +34,7 @@ Also see here [`CONFIG.md`](./CONFIG.md). Hello, the CONFIG.md file is old and I
 >
 
 Manager for KernelSU users
-> Original [![Stable Version](https://img.shields.io/github/v/release/rsuntk/KernelSU?label=Release&logo=github)](https://github.com/rsuntk/KernelSU/releases/latest) [![Nightly Version](https://img.shields.io/badge/Nightly%20Release-gray?logo=hackthebox&logoColor=fff)](https://nightly.link/rsuntk/KernelSU/workflows/build-manager/main/manager)
+> Original [![Stable Version](https://img.shields.io/github/v/release/rsuntk/KernelSU?label=Release&logo=github)](https://github.com/rsuntk/KernelSU/releases/latest) [![Nightly Version](https://img.shields.io/badge/Nightly%20Release-gray?logo=hackthebox&logoColor=fff)](https://nightly.link/rsuntk/KernelSU/workflows/build-manager/main/manager)  
 > Alternative [![Stable Version](https://img.shields.io/github/v/release/backslashxx/KernelSU?label=Release&logo=github)](https://github.com/backslashxx/KernelSU/releases/latest)
 
 Manager for KernelSU-Next users
