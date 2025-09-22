@@ -225,9 +225,7 @@ jobs:
           fi
 
           if [ "$KNAME" = "power" ]; then
-            cd $KERNEL_NAME
             git revert --no-edit 774f0717aaab2a7848f73818319a30e222ca864c
-            cd ..
           fi
 
           BKB_BRANCH=main
