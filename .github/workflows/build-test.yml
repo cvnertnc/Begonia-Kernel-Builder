@@ -224,6 +224,10 @@ jobs:
             rm -rf "./BKB"
           fi
 
+          if [ "$KNAME" = "power" ]; then
+            git revert --no-edit 774f0717aaab2a7848f73818319a30e222ca864c
+          fi
+
           BKB_BRANCH=dev
 
           git clone --recursive -j $(nproc) --branch $BKB_BRANCH https://x-access-token:${{ secrets.GH_PAT }}@github.com/cvnertnc/susfs4ksu-begonia BKB
