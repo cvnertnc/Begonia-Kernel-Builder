@@ -229,6 +229,8 @@ jobs:
           fi
 
           if [ "$KNAME" = "power" ]; then
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
             git revert --no-edit 774f0717aaab2a7848f73818319a30e222ca864c
           fi
 
