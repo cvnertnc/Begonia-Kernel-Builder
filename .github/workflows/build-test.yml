@@ -127,11 +127,7 @@ jobs:
 
       - name: "🌟 Clone kernel source => (${{ env.KERNEL_REPO }})"
         run: |
-          if [ "$KNAME" = "power" ]; then
-            git clone --recursive -j $(nproc) --branch $KERNEL_BRANCH $KERNEL_REPO $KERNEL_NAME
-          else
-            git clone --recursive --depth=1 -j $(nproc) --branch $KERNEL_BRANCH $KERNEL_REPO $KERNEL_NAME
-          fi
+          git clone --recursive --depth=1 -j $(nproc) --branch $KERNEL_BRANCH $KERNEL_REPO $KERNEL_NAME
           echo -e "\n⚠️ Kernel is at commit: $(git -C $KERNEL_NAME rev-parse HEAD)\n"
 
           echo "🤔 Clone kernel source => ($KERNEL_REPO)"
@@ -226,12 +222,6 @@ jobs:
         run: |
           if [ -d "./BKB" ]; then
             rm -rf "./BKB"
-          fi
-
-          if [ "$KNAME" = "power" ]; then
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git revert --no-edit 774f0717aaab2a7848f73818319a30e222ca864c
           fi
 
           BKB_BRANCH=dev
