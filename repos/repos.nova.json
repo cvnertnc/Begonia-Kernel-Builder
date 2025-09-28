@@ -161,7 +161,7 @@
     "withRoot": "sukisu",
     "withSUSFS": true,
     "whichSUSFS": "susfs-dev",
-    "withKPM": true,
+    "withKPM": false,
     "toolchains": [
       {
         "repo": "https://gitlab.com/PixelOS-Devices/playgroundtc",
