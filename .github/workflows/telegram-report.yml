@@ -41,36 +41,6 @@ jobs:
             echo "RELEASE_TAG=$(echo $LATEST_RELEASE | jq -r '.tag_name')" >> $GITHUB_ENV
           fi
 
-      - name: Getting KernelSU version
-        id: integrate-ksu
-        run: |
-          if [ -d "./KernelSU" ]; then
-            rm -rf "./KernelSU"
-          fi
-
-          git clone --recursive -j $(nproc) --branch main https://github.com/rsuntk/KernelSU KernelSU
-
-          KernelSU_VERSION=$(git -C KernelSU describe --abbrev=0 --tags)
-
-          echo "KernelSU version: $KernelSU_VERSION"
-
-          echo "KernelSU_VERSION=$KernelSU_VERSION" >> $GITHUB_ENV
-
-      - name: Getting KernelSU Alternative version
-        id: integrate-ksu-alternative
-        run: |
-          if [ -d "./KernelSU" ]; then
-            rm -rf "./KernelSU"
-          fi
-
-          git clone --recursive -j $(nproc) --branch main https://github.com/rsuntk/KernelSU KernelSU
-
-          KernelSUA_VERSION=$(git -C KernelSU describe --abbrev=0 --tags)
-
-          echo "KernelSU version: $KernelSUA_VERSION"
-
-          echo "KernelSUA_VERSION=$KernelSUA_VERSION" >> $GITHUB_ENV
-
       - name: Getting KernelSU-Next version
         id: integrate-kernelsu-next
         run: |
@@ -116,21 +86,15 @@ jobs:
 
           ▫️ *Device:* Begonia
           ▫️ *Non-Patch Variant*
-          ▫️ *KernelSU:* ${{ env.KernelSU_VERSION }}
           ▫️ *KernelSU-Next:* ${{ env.KERNELSUN_VERSION }}
           ▫️ *SukiSU-Ultra:* ${{ env.SUKISU_VERSION }}
-          ▫️ *APatch:* Supported [Nova]
 
-          ▫️ *SUSFS:* v1.5.9 Supported
-          ▫️ *KPM:* Supported [Nova]
+          ▫️ *SUSFS:* v1.5.10 Supported
           ▫️ *Mountify:* Supported
           ▫️ *Release:* ${{ env.RELEASE_NAME }}
 
           📥 *Download Links:*
           - GitHub Release: [${{ env.RELEASE_NAME }}](${{ env.RELEASE_URL }})
-          - KernelSU Manager:
-            Original [Release](https://github.com/rsuntk/KernelSU/releases/${{ env.KernelSU_VERSION }}) | [Nightly](https://nightly.link/rsuntk/KernelSU/workflows/build-manager/main/manager)
-            Alternative [Release](https://github.com/backslashxx/KernelSU/releases/${{ env.KernelSUA_VERSION }})
           - KernelSU-Next Manager:
             Original [Release](https://github.com/KernelSU-Next/KernelSU-Next/releases/${{ env.KERNELSUN_VERSION }}) | [Nightly](https://nightly.link/KernelSU-Next/KernelSU-Next/workflows/build-manager-ci/next/Manager)
             Fork [Nightly](https://github.com/TheWildJames/KernelSU-Next/actions)
@@ -152,7 +116,7 @@ jobs:
           Astera Kernel by [MrErenK](https://t.me/Mr_ErenK)
           Nova Kernel by [Abdul7852](https://t.me/Abdul7852)
           Power Kernel by [Sai Krishna](https://t.me/Saikrishna1504)
-          KernelSU, KernelSU-Next, SukiSU-Ultra and SUSFS patches by [CEHunter ⚝](https://t.me/the_CEHunter)
+          KernelSU-Next, SukiSU-Ultra and SUSFS patches by [CEHunter ⚝](https://t.me/the_CEHunter)
 
           *Follow:* [cvnertnc](https://t.me/cvnertnc)
           *Join:* [cvnertnc-Chat](https://t.me/cvnertnc_chat)
