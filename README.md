@@ -18,8 +18,6 @@
 
 Get the [latest CI release](https://github.com/cvnertnc/Begonia-Kernel-Builder/releases/latest)
 
-Astera Kernel By [MrErenK](https://github.com/MrErenK)
-
 Power Kernel By [Saikrishna1504](https://github.com/Saikrishna1504/kernel_xiaomi_mt6785)
 
 Nova Kernel By [Wahid7852](https://github.com/Wahid7852)
@@ -48,7 +46,6 @@ Download and install Mountify Module [![Mountify Module](https://img.shields.io/
 ## Supported Begonia Kernels      
 | Kernels | Build | [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next) | [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra) | [SUSFS](https://gitlab.com/simonpunk/susfs4ksu) |      
 |---------|-------|--------------|------------------------|-------|    
-| [Astera](https://github.com/xiaomi-begonia-dev/android_kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ | ✅ |    
 | [Power](https://github.com/Saikrishna1504/kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ | ✅ |    
 | [Nova](https://github.com/Nova-Kernels/kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ | ✅ |
 
