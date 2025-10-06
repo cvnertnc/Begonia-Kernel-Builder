@@ -5,10 +5,10 @@
 [![latest CI release](https://img.shields.io/github/v/release/cvnertnc/Begonia-Kernel-Builder?label=Release&logo=github)](https://github.com/cvnertnc/Begonia-Kernel-Builder/releases/latest)
 [![CI](https://github.com/cvnertnc/Begonia-Kernel-Builder/actions/workflows/ci.yml/badge.svg)](https://github.com/cvnertnc/Begonia-Kernel-Builder/actions/workflows/ci.yml)
 
-> Automatically follow daily KernelSU-Next and SukiSU-Ultra updates and build the android kernel for Xiaomi Redmi Note 8 Pro(begonia)
+> Automatically follow daily KernelSU-Next updates and build the android kernel for Xiaomi Redmi Note 8 Pro(begonia)
 
 > [!NOTE]
-> These builds are created for the Xiaomi Redmi Note 8 Pro(begonia) device. It is built with KernelSU-Next, SukiSU-Ultra and SUSFS
+> These builds are created for the Xiaomi Redmi Note 8 Pro(begonia) device. It is built with KernelSU-Next and SUSFS
 >
 > If your current kernel has Magisk installed, please uninstall Magisk **before installing Your kernel**.  
 > After removing Magisk, you can safely proceed with installing Your kernel.
@@ -18,11 +18,7 @@
 
 Get the [latest CI release](https://github.com/cvnertnc/Begonia-Kernel-Builder/releases/latest)
 
-Astera Kernel By [MrErenK](https://github.com/MrErenK)
-
 Power Kernel By [Saikrishna1504](https://github.com/Saikrishna1504/kernel_xiaomi_mt6785)
-
-Nova Kernel By [Wahid7852](https://github.com/Wahid7852)
 
 Also see here [`CONFIG.md`](./CONFIG.md). Hello, the CONFIG.md file is old and I will not update it.
 
@@ -37,20 +33,15 @@ Manager for KernelSU-Next users
 > Original [![Stable Version](https://img.shields.io/github/v/release/KernelSU-Next/KernelSU-Next?label=Release&logo=github)](https://github.com/KernelSU-Next/KernelSU-Next/releases/latest) [![Nightly Version](https://img.shields.io/badge/Nightly%20Release-gray?logo=hackthebox&logoColor=fff)](https://nightly.link/KernelSU-Next/KernelSU-Next/workflows/build-manager-ci/next/Manager)  
 > Fork [![Nightly Version](https://img.shields.io/badge/Nightly%20Release-gray?logo=hackthebox&logoColor=fff)](https://github.com/TheWildJames/KernelSU-Next/actions)
 
-Manager fot SukiSU-Ultra users
-> [![Stable Version](https://img.shields.io/github/v/release/SukiSU-Ultra/SukiSU-Ultra?label=Release&logo=github)](https://github.com/SukiSU-Ultra/SukiSU-Ultra/releases/latest) [![Nightly Version](https://img.shields.io/badge/Nightly%20Release-gray?logo=hackthebox&logoColor=fff)](https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager/main/manager)
-
 Download and install SUSFS Module
 > [![Stable Version](https://img.shields.io/github/v/release/sidex15/susfs4ksu-module?label=Release&logo=github)](https://github.com/sidex15/susfs4ksu-module/releases/latest) [![Nightly Version](https://img.shields.io/badge/Nightly%20Release-gray?logo=hackthebox&logoColor=fff)](https://nightly.link/sidex15/susfs4ksu-module/workflows/build/v1.5.2+)
 
 Download and install Mountify Module [![Mountify Module](https://img.shields.io/github/v/release/backslashxx/mountify?label=Release&logo=github)](https://github.com/backslashxx/mountify/releases/latest)
 
 ## Supported Begonia Kernels      
-| Kernels | Build | [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next) | [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra) | [SUSFS](https://gitlab.com/simonpunk/susfs4ksu) |      
-|---------|-------|--------------|------------------------|-------|    
-| [Astera](https://github.com/xiaomi-begonia-dev/android_kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ | ✅ |    
-| [Power](https://github.com/Saikrishna1504/kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ | ✅ |    
-| [Nova](https://github.com/Nova-Kernels/kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ | ✅ |
+| Kernels | Build | [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next) | [SUSFS](https://gitlab.com/simonpunk/susfs4ksu) |      
+|---------|-------|--------------|-------|    
+| [Power](https://github.com/Saikrishna1504/kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ |    
 
 ## Thanks
   

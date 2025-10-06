@@ -56,21 +56,6 @@ jobs:
 
           echo "KERNELSUN_VERSION=$KERNELSUN_VERSION" >> $GITHUB_ENV
 
-      - name: Getting SukiSU-Ultra version
-        id: integrate-sukisu-ultra
-        run: |
-          if [ -d "./KernelSU" ]; then
-            rm -rf "./KernelSU"
-          fi
-
-          git clone --recursive -j $(nproc) --branch main https://github.com/ShirkNeko/SukiSU-Ultra KernelSU
-
-          SUKISU_VERSION=$(git -C KernelSU describe --abbrev=0 --tags)
-
-          echo "SUKISU version: $SUKISU_VERSION"
-
-          echo "SUKISU_VERSION=$SUKISU_VERSION" >> $GITHUB_ENV
-
       - name: Report to Telegram
         env:
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
@@ -80,14 +65,11 @@ jobs:
 
           MSG="🚀 *For all Kernels ROOT Version is Updated!* 🔥
 
-          ▫️ *Kernel:* 4.14.336.Astera
           ▫️ *Kernel:* 4.14.355.Power
-          ▫️ *Kernel:* 4.14.336.Nova
 
           ▫️ *Device:* Begonia
           ▫️ *Non-Patch Variant*
           ▫️ *KernelSU-Next:* ${{ env.KERNELSUN_VERSION }}
-          ▫️ *SukiSU-Ultra:* ${{ env.SUKISU_VERSION }}
 
           ▫️ *SUSFS:* v1.5.10 Supported
           ▫️ *Mountify:* Supported
@@ -98,8 +80,6 @@ jobs:
           - KernelSU-Next Manager:
             Original [Release](https://github.com/KernelSU-Next/KernelSU-Next/releases/${{ env.KERNELSUN_VERSION }}) | [Nightly](https://nightly.link/KernelSU-Next/KernelSU-Next/workflows/build-manager-ci/next/Manager)
             Fork [Nightly](https://github.com/TheWildJames/KernelSU-Next/actions)
-          - SukiSU-Ultra Manager:
-            [Release](https://github.com/ShirkNeko/SukiSU-Ultra/releases/${{ env.SUKISU_VERSION }}) | [Nightly](https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager/main/manager)
           - SUSFS Module: 
             [Release](https://github.com/sidex15/susfs4ksu-module/releases/latest) | [Nightly](https://nightly.link/sidex15/susfs4ksu-module/workflows/build/v1.5.2+)
           - Mountify Module: [Release](https://github.com/backslashxx/mountify/releases/latest)
@@ -107,16 +87,14 @@ jobs:
           ⚠️ *Note:* There has been a variant change for KernelSU. If you are using KernelSU and have updated, please delete the manager on your device and download from release or nightly and update your manager.
 
           ⚠️ *Note:* Regardless of MIUI or AOSP. The best working for my device is Power Kernel. I recommend you to use Power Kernel variants.
-          ⚠️ *Note:* Using Astera and Nova kernel is completely your choice. Test it and use the best kernel for your device.
+          ⚠️ *Note:* Using Nova kernel is completely your choice. Test it and use the best kernel for your device.
           ⚠️ *Note:* To prevent the risk of your device becoming bootlopped after the kernel installation, please backup your current kernel before flashing the kernel.
 
           *Please Read:*
           https://t.me/cvnertnc/218
 
-          Astera Kernel by [MrErenK](https://t.me/Mr_ErenK)
-          Nova Kernel by [Abdul7852](https://t.me/Abdul7852)
           Power Kernel by [Sai Krishna](https://t.me/Saikrishna1504)
-          KernelSU-Next, SukiSU-Ultra and SUSFS patches by [CEHunter ⚝](https://t.me/the_CEHunter)
+          KernelSU-Next and SUSFS patches by [CEHunter ⚝](https://t.me/the_CEHunter)
 
           *Follow:* [cvnertnc](https://t.me/cvnertnc)
           *Join:* [cvnertnc-Chat](https://t.me/cvnertnc_chat)
