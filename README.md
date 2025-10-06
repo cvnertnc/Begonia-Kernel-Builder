@@ -47,7 +47,6 @@ Download and install Mountify Module [![Mountify Module](https://img.shields.io/
 | Kernels | Build | [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next) | [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra) | [SUSFS](https://gitlab.com/simonpunk/susfs4ksu) |      
 |---------|-------|--------------|------------------------|-------|    
 | [Power](https://github.com/Saikrishna1504/kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ | ✅ |    
-| [Nova](https://github.com/Nova-Kernels/kernel_xiaomi_mt6785) | ✅ | ✅ | ✅ | ✅ |
 
 ## Thanks
   
