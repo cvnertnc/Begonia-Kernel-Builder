@@ -60,7 +60,7 @@
     },
     "withRoot": "ksun",
     "withSUSFS": true,
-    "whichSUSFS": "susfs-dev",
+    "whichSUSFS": "susfs-159",
     "withKPM": false,
     "toolchains": [
       {
