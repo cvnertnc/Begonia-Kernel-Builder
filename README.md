@@ -1,4 +1,9 @@
 #### ⚠️ [Original Repo](https://github.com/PhamtomK12/Android-Kernel-Builder)
+
+> [!NOTE]
+> **I'm archiving this project because I don't have much time anymore.**
+>
+
 # Begonia-Kernel-Builder
 ![Artifacts](./.assets/aboutphoto.jpg)
 [![Telegram](https://img.shields.io/badge/Follow-Telegram-blue.svg?logo=telegram)](https://t.me/cvnertnc)
