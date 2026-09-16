@@ -44,7 +44,7 @@
     },
     "AnyKernel3": {
       "use": true,
-      "release": true,
+      "release": false,
       "repo": "https://github.com/cvnertnc/AnyKernel3/",
       "branch": "begonia"
     }
@@ -94,7 +94,7 @@
     },
     "AnyKernel3": {
       "use": true,
-      "release": true,
+      "release": false,
       "repo": "https://github.com/cvnertnc/AnyKernel3/",
       "branch": "begonia"
     }
